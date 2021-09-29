@@ -2,37 +2,29 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
-        short[] a;
-        float[] x;
-        float[][] b;
         Random rand = new Random();
-        x = new float[1000];
-        a = new short[1000];
-        b = new float[100][100];
+        float[] x = new float[1000];
+        short[] a = new short[1000];
+        float[][] b = new float[100][100];
         short k = 1;
         for (short i = 24; i >= 6; i -= 2) {
             a[k] = i;
             k++;
         }
         for (short i = 1; i <= 17; i++)
-            x[i] = rand.nextFloat() * 24.0f - 10.0f; // (0,1) => (0, 24) => (-10, 14)
-        for (int i = 1; i <= 10; i++) {
-            for (int j = 1; j <= 17; j++) {
+            x[i] = rand.nextFloat() * 24.0f - 10.0f; // [0,1] => [0, 24] => [-10, 14]
+        for (int i = 1; i <= 10; i++)
+            for (int j = 1; j <= 17; j++)
                 if (a[i] == 8) {
                     b[i][j] = (float) Math.log(Math.acos(Math.pow((x[j] + 2) / 24, 2)));
-                } else if (((a[i] % 6 == 0) || (a[i] % 10 == 0))&& (a[i] != 18)) { //a[i] = {24, 20, 12, 10, 6}
+                } else if (((a[i] % 6 == 0) || (a[i] % 10 == 0)) && (a[i] != 18)) { //a[i] = {24, 20, 12, 10, 6}
                     b[i][j] = (float) Math.sin(Math.pow(Math.E, Math.cos(x[j])));
                 } else
-                    b[i][j] = (float) Math.pow(Math.cos(Math.pow(Math.pow(Math.E, x[j]), 1.0 / 3.0)),  (float) Math.asin((float)Math.pow(Math.E, -1.0f * Math.abs(x[j]) / 2.0f / 3.0f)));
-            }
-        }
+                    b[i][j] = (float) Math.pow(Math.cos(Math.pow(Math.pow(Math.E, x[j]), 1.0 / 3.0)), (float) Math.asin((float) Math.pow(Math.E, -1.0f * Math.abs(x[j]) / 2.0f / 3.0f)));
         for (int i = 1; i <= 10; i++) {
             for (int j = 1; j <= 17; j++)
                 System.out.printf("%8.5f", b[i][j]);
             System.out.println();
         }
-
     }
-
-
 }
