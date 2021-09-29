@@ -1,0 +1,54 @@
+import java.util.Random;
+import java.util.Scanner;
+
+
+public class labainf2
+{
+        public static void main(String[] args) {
+            Scanner sc = new Scanner(System.in);
+            int x = sc.nextInt();
+            int[] msg = new int[20];
+            int[] s = new int[10];
+            int k = 7;
+            while(x > 0){
+                msg[k] = x%10;
+                x /=10;
+                k--;
+            }
+            k = 1;
+            System.out.print("message:");
+            for(int i = 1; i <= 7; i++)
+                System.out.printf("%d", msg[i]);
+            s[1] = msg[1];
+            s[2] = msg[2];
+            s[3] = msg[4];
+            int h = 1;
+            for(int i = 1; i <= 3; i++) {
+                for (int j = h + 1; j <= 7; j++) {
+                    if ((j / k) % 2 == 1) {
+                        s[i] ^= msg[j];
+                    }
+                }
+                h *= 2;
+            }
+            System.out.println();
+            System.out.print("sindrom:");
+            for(int i = 1; i <= 3; i++)
+                System.out.printf("%d", s[i]);
+            System.out.println();
+            System.out.print("error bit number:");
+            System.out.println(s[1] + s[2]*2 + s[3] * 4);
+            System.out.print("fixed message:");
+            msg[s[1] + s[2]*2 + s[3] * 4] = msg[s[1] + s[2]*2 + s[3] * 4] ^ 1;
+            for(int i = 1; i <= 7; i++)
+                System.out.printf("%d", msg[i]);
+            System.out.println();
+            System.out.print("information bits:");
+            for(int i = 3; i <= 7; i++)
+                    if(i != 4)
+                        System.out.printf("%d", msg[i]);
+
+
+
+    }
+}
